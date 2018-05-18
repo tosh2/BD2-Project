@@ -1,0 +1,1 @@
+db.Usuarios.insert({Id:1, Nombres:"Josue David",Apellidos:"Itzep Salvador",Edad:21, Usuario:"admin",Password:"admin"});
