@@ -34,6 +34,12 @@
 		$client->Proyecto->id_autoincremental->updateOne(['valor' => "index"],['$set' => ['id' => $nuevoid]]);
 		$nuevoid = $nuevoid + 1;
 
+		$nombres 	= "";
+		$apellidos 	= "";
+		$usuario 	= "";
+		$password 	= "";
+		$edad 		= 0;
+
 	}else if( isset($_POST["actualizar"]) ){
 		$nombres 	= $_POST["txt_nombres"];
 		$apellidos 	= $_POST["txt_apellidos"];
@@ -70,17 +76,18 @@
 		$nuevoid	= $result["Id"];
 
 	}elseif ( isset($_POST["eliminar"]) ){
-		
+
 		$result = $usuarios->deleteOne(['Id' => (int)$_POST["txt_action_id"]]);
 
-		$nombres 	=  $result["Nombres"];
-		$apellidos 	= $result["Apellidos"];
-		$usuario 	= $result["Usuario"];
-		$password 	= $result["Password"];
-		$edad 		=$result["Edad"];
-		
-		$nuevoid	= $result["Id"];
 	}
+
+	if( isset($_POST["buscar"]) ){
+
+		header("Location: Busqueda.php"."?nombres=".$_POST["txt_action_nombres"]."&apellidos=".$_POST["txt_action_apellidos"]);
+		exit();
+
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -135,25 +142,25 @@
 			                  	</div>
 			                  	<div class="form-group">
 			                    	<label>Nombres</label>
-			                    	<input type="text" class="form-control" id="txt_nombres" placeholder="Mis Nombres" name="txt_nombres" value="<?=$nombres?>">
+			                    	<input type="text" class="form-control" id="txt_nombres" placeholder="Mis Nombres" name="txt_nombres" value="<?=$nombres?>" required>
 			                  	</div>
 			                  	<div class="form-group">
 			                    	<label>Apellidos</label>
-			                    	<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Mis Apellidos" name="txt_apellidos" value="<?=$apellidos?>">
+			                    	<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Mis Apellidos" name="txt_apellidos" value="<?=$apellidos?>" required>
 			                  	</div>
 			                  	<div class="form-group">
 			                    	<label>Usuario</label>
-				                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Elige un nombre de usuario" name="txt_usuario" value="<?=$usuario?>">
+				                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Elige un nombre de usuario" name="txt_usuario" value="<?=$usuario?>" required>
 			                  	</div>
 			                  	<div class="form-group row">
 			                    	<label for="staticEmail" class="col-sm-2 col-form-label">Edad</label>
 			                    	<div class="col-sm-4">
-			                      		<input type="number" class="form-control" placeholder="Mi Edad" name="txt_edad" value="<?=$edad?>">
+			                      		<input type="number" class="form-control" placeholder="Mi Edad" name="txt_edad" value="<?=$edad?>" required>
 			                    	</div>
 
 			                    	<label for="staticEmail" class="col-sm-2 col-form-label">Contraseña</label>
 			                    	<div class="col-sm-4">
-			                      		<input type="password" class="form-control" placeholder="***" name="txt_password" value="<?=$password?>">
+			                      		<input type="password" class="form-control" placeholder="***" name="txt_password" value="<?=$password?>" maxlength = "3" required>
 			                    	</div>
 			                  	</div>
 			               
@@ -188,11 +195,25 @@
 								    	<button type="submit" class="btn btn-primary" name="eliminar">Eliminar</button>
 								</div>								
 					        </div>
+					    </form>
+
+					    <form method="POST">
+				        	<legend>Buscar</legend>
+					       	<div class="form-group">
+					           	<label class="col-form-label" for="inputDefault">Nombre:</label>
+					           	<input type="text" class="form-control" id="inputDefault" name="txt_action_nombres" required>
+					       	</div>
+					       	<div class="form-group">
+					           	<label class="col-form-label" for="inputDefault">Apellido:</label>
+					           	<input type="text" class="form-control" id="inputDefault" name="txt_action_apellidos" required>
+					       	</div>
 					        <div class="col-sm-5">
-								<button type="submit" class="btn btn-primary" name="">Buscar</button>
+								<button type="submit" class="btn btn-primary" name="buscar">Buscar</button>
 							</div>
 					    </form>
+
 		          	</div>
+	
 	        	</div>
 	    	</div>
 				

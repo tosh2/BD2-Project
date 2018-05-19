@@ -3,8 +3,18 @@
 	require 'vendor/autoload.php'; // include Composer's autoloader
 	use MongoDB\Client as Mongo;
 	$client = new Mongo();
-	$result = $client->Proyecto->usuarios->find();
+
+	if( isset($_GET["nombres"]) && isset($_GET["apellidos"]) ) {
+
+		$result = $client->Proyecto->usuarios->find(["Nombres" => $_GET["nombres"], "Apellidos" => $_GET["apellidos"]]);
+	
+	}else{
+		$result = $client->Proyecto->usuarios->find();
+	}
+
+	
 ?>
+
 
 <!DOCTYPE html>
 <html>
