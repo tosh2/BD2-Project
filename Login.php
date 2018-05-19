@@ -1,11 +1,9 @@
 <?php
 require 'vendor/autoload.php'; // include Composer's autoloader
 use MongoDB\Client as Mongo;
-/*
-$client = new MongoDB\Client("mongodb://localhost:27017");
-*/
+
 $client = new Mongo();
-$collection = $client->Proyecto->Usuarios;
+$collection = $client->Proyecto->usuarios;
 
 
 	if( isset($_POST["iniciarSesion"]) ){
@@ -20,6 +18,8 @@ $collection = $client->Proyecto->Usuarios;
 			if($result){
 				foreach ($result as $entry) {
 			    	echo $entry['Id'], ': ', $entry['Usuario'], "\n";
+			    	session_start();
+			    	$_SESSION['usuario'] = $entry['Usuario'];
 			    	header("Location: MongoActions.php");
 			    	exit();
 				}
@@ -54,7 +54,7 @@ $collection = $client->Proyecto->Usuarios;
 		  </button>
 
 		  <div class="collapse navbar-collapse" id="navbarColor03">
-		    <ul class="nav navbar-nav ml-auto">
+		    <ul class="nav navbar-nav ml-auto">		 
 	            <li class="nav-item">
 	              <a class="nav-link" href="Index.php" target="_blank">Inicio</a>
 	            </li>

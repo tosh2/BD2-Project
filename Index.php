@@ -1,6 +1,12 @@
 <?php
 session_start();
-$_SESSION['usuario']="admin";
+
+	if( isset($_GET['logout'])){
+		echo "cerraste sesion";
+		session_unset();
+		session_destroy();
+	}
+
 ?>
 
 <!DOCTYPE html>

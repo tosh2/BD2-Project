@@ -1,1 +1,6 @@
-db.Usuarios.insert({Id:1, Nombres:"Josue David",Apellidos:"Itzep Salvador",Edad:21, Usuario:"admin",Password:"admin"});
+use Proyecto
+db.createCollection('id_autoincremental');
+db.id_autoincremental.insert({valor:"index",id:1});
+
+db.createCollection('usuarios');
+db.usuarios.insert({Id:1, Nombres:"Josue David",Apellidos:"Itzep Salvador",Edad:"21", Usuario:"admin",Password:"admin"});
